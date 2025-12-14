@@ -39,3 +39,58 @@ services:
       - webapp
       - worker
     command: 'celery -A proj beat -l info'
+
+
+
+
+
+# version: '3.9'
+
+# services:
+#   redis:
+#     image: redis:7
+#     container_name: redis
+#     ports:
+#       - "6379:6379"
+#     restart: always
+
+#   web:
+#     build: ./webapp
+#     container_name: webapp
+#     command: >
+#       sh -c "python manage.py migrate &&
+#              python manage.py runserver 0.0.0.0:8000"
+#     volumes:
+#       - ./webapp:/app
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - redis
+#     environment:
+#       - CELERY_BROKER_URL=redis://redis:6379/0
+
+#   worker:
+#     build: ./webapp
+#     container_name: worker
+#     command: >
+#       sh -c "while ! nc -z redis 6379; do echo Waiting for Redis; sleep 1; done;
+#              celery -A webapp worker -l info"
+#     volumes:
+#       - ./webapp:/app
+#     depends_on:
+#       - redis
+#     environment:
+#       - CELERY_BROKER_URL=redis://redis:6379/0
+
+#   beat:
+#     build: ./webapp
+#     container_name: beat
+#     command: >
+#       sh -c "while ! nc -z redis 6379; do echo Waiting for Redis; sleep 1; done;
+#              celery -A webapp beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+#     volumes:
+#       - ./webapp:/app
+#     depends_on:
+#       - redis
+#     environment:
+#       - CELERY_BROKER_URL=redis://redis:6379/0

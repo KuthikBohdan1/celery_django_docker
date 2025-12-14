@@ -24,3 +24,8 @@ def get_api():
 def test_task():
     print('Worked')
     return True
+
+@app.task()
+def send_email():
+    print("wokr")
+    return True
