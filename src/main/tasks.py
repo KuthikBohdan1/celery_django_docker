@@ -1,7 +1,6 @@
 import requests
 from celery import shared_task
 from proj.celery import app
-
 from src.main.service import send, save_categories
 
 
@@ -26,6 +25,6 @@ def test_task():
     return True
 
 @app.task()
-def send_email():
-    print("wokr")
+def send_spam_email(user_email):
+    send(user_email=user_email)
     return True
