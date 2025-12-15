@@ -26,5 +26,6 @@ def test_task():
 
 @app.task()
 def send_spam_email(user_email):
+    print("send_spam_email run")
     send(user_email=user_email)
     return True
